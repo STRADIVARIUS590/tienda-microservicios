@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.joel.tienda.commons.mappers.CommonMapper;
 
-public class CommonService<D, E, M extends CommonMapper<D, E, R>, R extends JpaRepository<E, Long>>implements ICommonService<D> {
+public class CommonService<D, E, M extends 
+CommonMapper<D, E, R>, R extends JpaRepository<E, Long>>implements ICommonService<D> {
 
 	@Autowired
 	protected R repository;
