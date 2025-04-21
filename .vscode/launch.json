@@ -8,6 +8,27 @@
             "mainClass": "com.joel.tienda.clientes.MsClientesApplication",
             "projectName": "ms-clientes",
             "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=60160 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=ms-clientes"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-TiendaServerApplication<tienda-server>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.joel.tienda.server.TiendaServerApplication",
+            "projectName": "tienda-server",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-TiendaGatewayApplication<tienda-gateway>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.joel.tienda.gateway.TiendaGatewayApplication",
+            "projectName": "tienda-gateway",
+            "args": "",
             "envFile": "${workspaceFolder}/.env"
         }
     ]
