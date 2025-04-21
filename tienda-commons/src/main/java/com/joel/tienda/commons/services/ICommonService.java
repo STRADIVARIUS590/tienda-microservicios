@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-@Service
 public interface ICommonService<D> {
 
 	List<D> listar();

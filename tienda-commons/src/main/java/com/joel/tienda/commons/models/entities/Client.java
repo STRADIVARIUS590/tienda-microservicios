@@ -19,10 +19,10 @@ public class Client {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CLIENTE_SEQ")
     @SequenceGenerator(name = "CLIENTE_SEQ", sequenceName = "CLIENTE_SEQ", allocationSize = 1)
-    @Column(name = "ID")
-    String id;
+    @Column(name = "ID_CLIENTE")
+    Long id;
 	
-	@NotBlank
+@NotBlank
     @Column(name = "NOMBRE", nullable = false)
     String name;
 	
@@ -45,11 +45,11 @@ public class Client {
     String address;
 
     // Getters and Setters
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
