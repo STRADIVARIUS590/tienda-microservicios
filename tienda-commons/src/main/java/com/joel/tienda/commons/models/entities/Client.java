@@ -1,19 +1,47 @@
 package com.joel.tienda.commons.models.entities;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
-@Table(name = "clients")
+@Entity
+@Table(name = "CLIENTE")
 public class Client {
-
-    @Id
-    @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CLIENTE_SEQ")
+    @SequenceGenerator(name = "CLIENTE_SEQ", sequenceName = "CLIENTE_SEQ", allocationSize = 1)
+    @Column(name = "ID")
     String id;
+	
+	@NotBlank
+    @Column(name = "NOMBRE", nullable = false)
     String name;
+	
+	@NotBlank
+    @Column(name = "APELLIDO", nullable = false)
     String lastName;
+	
+	@Email
+    @NotBlank
+    @Column(name = "EMAIL", nullable = false, unique = true)
     String email;
+	
+	@NotBlank
+    @Pattern(regexp = "\\d{10}")
+    @Column(name = "TELEFONO", nullable = false, unique = true)
     String phone;
+	
+	@Size(max = 100)
+    @Column(name = "DIRECCION")
     String address;
 
     // Getters and Setters
