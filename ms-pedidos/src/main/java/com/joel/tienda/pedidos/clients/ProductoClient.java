@@ -9,7 +9,7 @@ import com.joel.tienda.commons.models.entities.Producto;
 @FeignClient(name = "ms-products")
 public interface ProductoClient {
 	
-	@GetMapping("/productos/{id}")
+	@GetMapping("/{id}")
     public Producto obtenerProductoPorId(@PathVariable Long id);
 
 }
