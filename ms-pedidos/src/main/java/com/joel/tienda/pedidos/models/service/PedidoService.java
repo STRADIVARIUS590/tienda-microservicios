@@ -13,7 +13,7 @@ import com.joel.tienda.commons.models.entities.Pedido;
 import com.joel.tienda.commons.models.entities.PedidoProducto;
 import com.joel.tienda.commons.models.entities.Producto;
 import com.joel.tienda.commons.services.CommonService;
-import com.joel.tienda.pedidos.Repositories.IPedidoRepository;
+import com.joel.tienda.pedidos.repositories.IPedidoRepository;
 import com.joel.tienda.pedidos.clients.ProductoClient;
 import com.joel.tienda.pedidos.dto.PedidoDTO;
 import com.joel.tienda.pedidos.dto.PedidoProductoDTO;

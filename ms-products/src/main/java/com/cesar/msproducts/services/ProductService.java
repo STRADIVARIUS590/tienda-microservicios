@@ -1,8 +1,8 @@
 package com.cesar.msproducts.services;
 
-import com.cesar.msproducts.Repository.IProductRepository;
+import com.cesar.msproducts.repository.IProductRepository;
 import com.cesar.msproducts.dto.ProductDTO;
-import com.cesar.msproducts.mappers.productMapper;
+import com.cesar.msproducts.mappers.ProductMapper;
 import com.joel.tienda.commons.models.entities.Producto;
 import com.joel.tienda.commons.services.CommonService;
 
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ProductService extends CommonService<ProductDTO, Producto, productMapper, IProductRepository> implements IProductService {
+public class ProductService extends CommonService<ProductDTO, Producto, ProductMapper, IProductRepository> implements IProductService {
 
     @Override
     public List<ProductDTO> listar() {

@@ -6,9 +6,9 @@ import org.springframework.stereotype.Component;
 
 import com.joel.tienda.commons.mappers.CommonMapper;
 import com.joel.tienda.commons.models.entities.Pedido;
-import com.joel.tienda.pedidos.Repositories.IPedidoRepository;
 import com.joel.tienda.pedidos.dto.PedidoDTO;
 import com.joel.tienda.pedidos.dto.PedidoProductoDTO;
+import com.joel.tienda.pedidos.repositories.IPedidoRepository;
 @Component
 public class PedidoMapper extends CommonMapper<PedidoDTO, Pedido, IPedidoRepository> {  
     

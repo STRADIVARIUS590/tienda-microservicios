@@ -2,8 +2,8 @@ package com.joel.tienda.clientes.mappers;
 
 import org.springframework.stereotype.Component;
 
-import com.joel.tienda.clientes.Repositories.IClientRepository;
 import com.joel.tienda.clientes.dto.ClientDTO;
+import com.joel.tienda.clientes.repositories.IClientRepository;
 import com.joel.tienda.commons.mappers.CommonMapper;
 import com.joel.tienda.commons.models.entities.Client;
 @Component
@@ -20,8 +20,7 @@ public class ClientMapper extends CommonMapper<ClientDTO, Client, IClientReposit
         dto.setLastName(entity.getLastName());
         dto.setEmail(entity.getEmail());
         dto.setPhone(entity.getPhone());
-        dto.setAddress(entity.getAddress());
-        System.err.println("ClientMapper.toDto() " + dto);
+        dto.setAddress(entity.getAddress()); 
         return dto;
     }
 

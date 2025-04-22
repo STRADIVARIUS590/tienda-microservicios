@@ -1,12 +1,12 @@
 package com.cesar.msproducts.mappers;
-import com.cesar.msproducts.Repository.IProductRepository;
+import com.cesar.msproducts.repository.IProductRepository;
 import com.cesar.msproducts.dto.ProductDTO;
 import com.joel.tienda.commons.mappers.CommonMapper;
 import com.joel.tienda.commons.models.entities.Producto;
 import org.springframework.stereotype.Component;
 
 @Component
-public class productMapper extends CommonMapper<ProductDTO, Producto, IProductRepository> {
+public class ProductMapper extends CommonMapper<ProductDTO, Producto, IProductRepository> {
 
     @Override
     public ProductDTO toDto(Producto entity) {
