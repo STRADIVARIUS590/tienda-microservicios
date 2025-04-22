@@ -1,5 +1,7 @@
 package com.joel.tienda.commons.models.entities;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -43,6 +45,9 @@ public class Client {
 	@Size(max = 100)
     @Column(name = "DIRECCION")
     String address;
+
+    @Column(name = "FECHA_ELIMINACION")
+    LocalDate deletetAt;
 
     // Getters and Setters
     public Long getId() {
@@ -91,5 +96,13 @@ public class Client {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public LocalDate getDeletetAt() {
+        return deletetAt;
+    }
+
+    public void setDeletetAt(LocalDate deletetAt) {
+        this.deletetAt = deletetAt;
     }
 }

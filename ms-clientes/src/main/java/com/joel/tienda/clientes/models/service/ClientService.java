@@ -1,5 +1,7 @@
 package com.joel.tienda.clientes.models.service;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +21,7 @@ implements IClientService{
     @Override
 	public List<ClientDTO> listar() {
 		List<ClientDTO> dtos = new ArrayList<>();
-		this.repository.findAll().forEach(aerolinea -> {	
+		this.repository.findAllUndeleted().forEach(aerolinea -> {	
 			dtos.add(this.mapper.toDto(aerolinea));
 		});
 		
@@ -61,7 +63,9 @@ implements IClientService{
 		Optional<Client> a = this.repository.findById(id);
 		
 		if(a.isPresent()) {
-			this.repository.deleteById(id);
+			Client client = a.get();
+			client.setDeletetAt(LocalDate.now());
+			//	this.repository.deleteById(id);
 		    return  this.mapper.toDto(a.get());
 		}
 		return null;

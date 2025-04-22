@@ -21,7 +21,7 @@ public class ClientMapper extends CommonMapper<ClientDTO, Client, IClientReposit
         dto.setEmail(entity.getEmail());
         dto.setPhone(entity.getPhone());
         dto.setAddress(entity.getAddress());
-        System.err.println("ClientMapper.toDto() " + dto);
+        dto.setDeletetAt(entity.getDeletetAt());
         return dto;
     }
 
@@ -37,6 +37,7 @@ public class ClientMapper extends CommonMapper<ClientDTO, Client, IClientReposit
         entity.setEmail(dto.getEmail());
         entity.setPhone(dto.getPhone());
         entity.setAddress(dto.getAddress());
+        entity.setDeletetAt(dto.getDeletetAt());
         return entity;
     }
     
