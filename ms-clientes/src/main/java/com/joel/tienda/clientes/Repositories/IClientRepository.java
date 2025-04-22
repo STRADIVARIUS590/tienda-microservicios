@@ -1,4 +1,4 @@
-package com.joel.tienda.clientes.Repositories;
+package com.joel.tienda.clientes.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

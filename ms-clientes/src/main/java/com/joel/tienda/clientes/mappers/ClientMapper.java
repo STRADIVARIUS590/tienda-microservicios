@@ -2,8 +2,8 @@ package com.joel.tienda.clientes.mappers;
 
 import org.springframework.stereotype.Component;
 
-import com.joel.tienda.clientes.Repositories.IClientRepository;
 import com.joel.tienda.clientes.dto.ClientDTO;
+import com.joel.tienda.clientes.repositories.IClientRepository;
 import com.joel.tienda.commons.mappers.CommonMapper;
 import com.joel.tienda.commons.models.entities.Client;
 @Component

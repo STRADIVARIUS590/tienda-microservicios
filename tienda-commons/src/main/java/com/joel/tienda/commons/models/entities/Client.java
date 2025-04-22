@@ -22,7 +22,7 @@ public class Client {
     @Column(name = "ID_CLIENTE")
     Long id;
 	
-@NotBlank
+    @NotBlank
     @Column(name = "NOMBRE", nullable = false)
     String name;
 	

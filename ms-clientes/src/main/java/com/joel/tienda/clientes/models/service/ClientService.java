@@ -6,9 +6,9 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.joel.tienda.clientes.Repositories.IClientRepository;
 import com.joel.tienda.clientes.dto.ClientDTO;
 import com.joel.tienda.clientes.mappers.ClientMapper;
+import com.joel.tienda.clientes.repositories.IClientRepository;
 import com.joel.tienda.commons.models.entities.Client;
 import com.joel.tienda.commons.services.CommonService;
 
