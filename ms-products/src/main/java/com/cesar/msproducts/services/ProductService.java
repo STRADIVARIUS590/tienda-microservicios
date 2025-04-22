@@ -1,8 +1,8 @@
 package com.cesar.msproducts.services;
 
-import com.cesar.msproducts.Repository.IProductRepository;
 import com.cesar.msproducts.dto.ProductDTO;
 import com.cesar.msproducts.mappers.productMapper;
+import com.cesar.msproducts.repository.IProductRepository;
 import com.joel.tienda.commons.models.entities.Producto;
 import com.joel.tienda.commons.services.CommonService;
 import org.springframework.stereotype.Service;

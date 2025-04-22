@@ -1,5 +1,5 @@
 package com.cesar.msproducts.mappers;
-import com.cesar.msproducts.Repository.IProductRepository;
+import com.cesar.msproducts.repository.IProductRepository;
 import com.cesar.msproducts.dto.ProductDTO;
 import com.joel.tienda.commons.mappers.CommonMapper;
 import com.joel.tienda.commons.models.entities.Producto;
