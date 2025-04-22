@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-//@RequestMapping("/api/productos")
-public class ProdcuctController extends CommonController<ProductDTO, ProductService> {
+@RequestMapping("/productos")
+public class ProductController extends CommonController<ProductDTO, ProductService> {
 
-    public ProdcuctController(ProductService service) {
+    public ProductController(ProductService service) {
         super(service);
     }
 }

@@ -5,6 +5,9 @@ import com.cesar.msproducts.dto.ProductDTO;
 import com.cesar.msproducts.mappers.productMapper;
 import com.joel.tienda.commons.models.entities.Producto;
 import com.joel.tienda.commons.services.CommonService;
+
+import org.springframework.transaction.annotation.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +27,7 @@ public class ProductService extends CommonService<ProductDTO, Producto, productM
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<ProductDTO> obtenerPorId(Long id) {
         Optional<Producto> opt = this.repository.findById(id);
         if(opt.isPresent()) {
@@ -33,11 +37,13 @@ public class ProductService extends CommonService<ProductDTO, Producto, productM
     }
 
     @Override
+    @Transactional
     public ProductDTO insertar(ProductDTO dto) {
         return this.mapper.toDto(this.repository.save(this.mapper.toEntity(dto)));
     }
 
     @Override
+    @Transactional
     public ProductDTO editar(ProductDTO dto, Long id ) {
         Optional<Producto> opt =  this.repository.findById(id);
         if(opt.isPresent()) {
@@ -48,6 +54,7 @@ public class ProductService extends CommonService<ProductDTO, Producto, productM
     }
 
     @Override
+    @Transactional
     public ProductDTO eliminar(Long id) {
         Optional<Producto> a = this.repository.findById(id);
 

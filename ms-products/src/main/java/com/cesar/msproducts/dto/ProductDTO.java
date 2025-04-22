@@ -8,14 +8,14 @@ import jakarta.validation.constraints.NotNull;
 public class ProductDTO {
 
     Long id;
-    @NotBlank
+    @NotBlank(message = "El nombre es obligatorio")
     String name;
-    @NotBlank
+    @NotBlank(message = "La descripción es obligatoria")
     String description;
-    @DecimalMin(value = "0.0", inclusive = true)
+    @DecimalMin(value = "0.0", inclusive = true, message = "El precio no puede ser negativo")
     @NotNull
     Double price;
-    @Min(0)
+    @Min(value=0, message = "El stock no puede ser negativo")
     @NotNull
     Integer stock;
 
