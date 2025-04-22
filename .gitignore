@@ -1,7 +1,2 @@
 /.metadata/
-tienda-commons/src/main/resources/application.properties
-ms-clientes/src/main/resources/application.properties
-ms-pedidos/src/main/resources/application.properties
-ms-products/src/main/resources/application.properties
-tienda-gateway/src/main/resources/application.properties
-tienda-server/src/main/resources/application.properties
+*.properties
