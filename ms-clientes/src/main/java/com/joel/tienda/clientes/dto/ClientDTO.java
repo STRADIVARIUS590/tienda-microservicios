@@ -3,6 +3,9 @@ package com.joel.tienda.clientes.dto;
 public class ClientDTO {
 
     Long id;
+
+
+    
     String name;
     String lastName;
     String email;
