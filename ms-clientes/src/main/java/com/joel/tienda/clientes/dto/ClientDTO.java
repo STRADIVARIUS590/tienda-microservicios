@@ -1,16 +1,17 @@
 package com.joel.tienda.clientes.dto;
 
+import java.time.LocalDate;
+
 public class ClientDTO {
 
     Long id;
-
-
-    
     String name;
     String lastName;
     String email;
     String phone;
     String address;
+    LocalDate deletetAt;
+
 
     // Getters and Setters
     public Long getId() {
@@ -59,5 +60,13 @@ public class ClientDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public LocalDate getDeletetAt() {
+        return deletetAt;
+    }
+
+    public void setDeletetAt(LocalDate deletetAt) {
+        this.deletetAt = deletetAt;
     }
 }

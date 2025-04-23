@@ -19,7 +19,7 @@ implements IClientService{
     @Override
 	public List<ClientDTO> listar() {
 		List<ClientDTO> dtos = new ArrayList<>();
-		this.repository.findAll().forEach(aerolinea -> {	
+		this.repository.findAllByDeletedAtIsNull() .forEach(aerolinea -> {	
 			dtos.add(this.mapper.toDto(aerolinea));
 		});
 		
@@ -61,7 +61,11 @@ implements IClientService{
 		Optional<Client> a = this.repository.findById(id);
 		
 		if(a.isPresent()) {
-			this.repository.deleteById(id);
+			Client client = a.get();
+			client.setDeletetAt(java.time.LocalDate.now());
+		    this.repository.save(client);
+		    // Optional<Client> a = this.repository.findById(id);
+			// 	this.repository.deleteById(id);
 		    return  this.mapper.toDto(a.get());
 		}
 		return null;
