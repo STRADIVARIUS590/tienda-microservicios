@@ -19,18 +19,12 @@ import com.joel.tienda.pedidos.dto.PedidoDTO;
 import com.joel.tienda.pedidos.dto.PedidoProductoDTO;
 import com.joel.tienda.pedidos.mappers.PedidoMapper;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-
 @Service
 public class PedidoService extends CommonService<PedidoDTO, Pedido, PedidoMapper, IPedidoRepository>
 implements IPedidoService{
 
 	@Autowired
     private ProductoClient productoClient; // Usar Feign Client en vez de repositorio
-	
-	 @PersistenceContext
-	    private EntityManager entityManager; // Inyección del EntityManager
 
 	@Override
     @Transactional(readOnly = true)
@@ -56,45 +50,56 @@ implements IPedidoService{
     @Override
     @Transactional
     public PedidoDTO insertar(PedidoDTO dto) {
-        Pedido pedido = new Pedido();
-        Client client = new Client();
-        client.setId(dto.getIdCliente());
-        pedido.setCliente(client);
-        pedido.setEstado("PENDIENTE");
+        Pedido pedido = repository.findByClienteIdAndEstado(dto.getIdCliente(), "PENDIENTE")
+                .orElseGet(() -> {
+                    Pedido nuevoPedido = new Pedido();
+                    Client client = new Client();
+                    client.setId(dto.getIdCliente());
+                    nuevoPedido.setCliente(client);
+                    nuevoPedido.setEstado("PENDIENTE");
+                    nuevoPedido.setProductos(new ArrayList<>());
+                    nuevoPedido.setTotal(0.0);
+                    return nuevoPedido;
+                });
 
-        double total = 0;
-        List<PedidoProducto> productos = new ArrayList<>();
         for (PedidoProductoDTO prodDTO : dto.getProductos()) {
             Producto producto = productoClient.obtenerProductoPorId(prodDTO.getIdProducto());
 
-            // Asegúrate de que el producto sea válido
             if (producto == null || producto.getId() == null) {
                 throw new IllegalStateException("Producto no encontrado con ID: " + prodDTO.getIdProducto());
             }
 
-            // Si el producto está gestionado por Hibernate, lo obtenemos mediante entityManager
-            producto = entityManager.find(Producto.class, producto.getId());
-            if (producto == null) {
-                throw new IllegalStateException("Producto no encontrado en la base de datos.");
+            PedidoProducto existente = pedido.getProductos().stream()
+                    .filter(pp -> pp.getProducto().getId().equals(producto.getId()))
+                    .findFirst()
+                    .orElse(null);
+
+            if (existente != null) {
+                existente.setCantidad(existente.getCantidad() + prodDTO.getCantidad());
+            } else {
+                PedidoProducto nuevoPP = new PedidoProducto();
+                nuevoPP.setProducto(producto);
+                nuevoPP.setCantidad(prodDTO.getCantidad());
+                nuevoPP.setPedido(pedido);
+                pedido.getProductos().add(nuevoPP);
             }
-
-            PedidoProducto pp = new PedidoProducto();
-            pp.setProducto(producto);
-            pp.setCantidad(prodDTO.getCantidad());
-            pp.setPedido(pedido);
-
-            productos.add(pp);
-
-            // Sumamos el precio * cantidad al total
-            total += producto.getPrecio() * prodDTO.getCantidad();
         }
 
-        pedido.setProductos(productos);
+        double total = pedido.getProductos().stream()
+                .mapToDouble(pp -> {
+                    Double precio = pp.getProducto().getPrecio();
+                    if (precio == null) {
+                        precio = 0.0;
+                    }
+                    return precio * pp.getCantidad();
+                })
+                .sum();
         pedido.setTotal(total);
 
         Pedido saved = repository.save(pedido);
         return mapper.toDto(saved);
     }
+
 
     @Override
     @Transactional
