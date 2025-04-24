@@ -146,6 +146,21 @@ O usando el wrapper:
 
 ---
 
+### 2.5 - API Gateway
+
+- Desde la terminal, navegar hacia `/tienda/ms-pedidos`  
+- Correr el comando:
+
+```bash
+mvn spring-boot:run
+```
+
+O usando el wrapper:
+
+```bash
+./mvnw spring-boot:run
+```
+
 ## 3 - FRONT END
 
 1. Desde la terminal, navegar hacia la carpeta `frontend-tiendaapp`  
