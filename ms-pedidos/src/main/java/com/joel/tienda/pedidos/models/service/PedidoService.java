@@ -14,6 +14,10 @@ import com.joel.tienda.commons.models.entities.PedidoProducto;
 import com.joel.tienda.commons.models.entities.Producto;
 import com.joel.tienda.commons.services.CommonService;
 import com.joel.tienda.pedidos.repositories.IPedidoRepository;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+
 import com.joel.tienda.pedidos.clients.ProductoClient;
 import com.joel.tienda.pedidos.dto.PedidoDTO;
 import com.joel.tienda.pedidos.dto.PedidoProductoDTO;
@@ -26,6 +30,10 @@ implements IPedidoService{
 	@Autowired
     private ProductoClient productoClient; // Usar Feign Client en vez de repositorio
 
+
+    @PersistenceContext
+    private EntityManager entityManager;
+ 
 	@Override
     @Transactional(readOnly = true)
     public List<PedidoDTO> listar() {
@@ -63,14 +71,16 @@ implements IPedidoService{
                 });
 
         for (PedidoProductoDTO prodDTO : dto.getProductos()) {
-            Producto producto = productoClient.obtenerProductoPorId(prodDTO.getIdProducto());
+            Producto productoData = productoClient.obtenerProductoPorId(prodDTO.getIdProducto());
 
-            if (producto == null || producto.getId() == null) {
+            if (productoData == null || productoData.getId() == null) {
                 throw new IllegalStateException("Producto no encontrado con ID: " + prodDTO.getIdProducto());
             }
 
+            Producto productoReference = entityManager.getReference(Producto.class, productoData.getId());
+
             PedidoProducto existente = pedido.getProductos().stream()
-                    .filter(pp -> pp.getProducto().getId().equals(producto.getId()))
+                    .filter(pp -> pp.getProducto().getId().equals(productoReference.getId()))
                     .findFirst()
                     .orElse(null);
 
@@ -78,7 +88,7 @@ implements IPedidoService{
                 existente.setCantidad(existente.getCantidad() + prodDTO.getCantidad());
             } else {
                 PedidoProducto nuevoPP = new PedidoProducto();
-                nuevoPP.setProducto(producto);
+                nuevoPP.setProducto(productoReference);
                 nuevoPP.setCantidad(prodDTO.getCantidad());
                 nuevoPP.setPedido(pedido);
                 pedido.getProductos().add(nuevoPP);
@@ -88,10 +98,7 @@ implements IPedidoService{
         double total = pedido.getProductos().stream()
                 .mapToDouble(pp -> {
                     Double precio = pp.getProducto().getPrecio();
-                    if (precio == null) {
-                        precio = 0.0;
-                    }
-                    return precio * pp.getCantidad();
+                    return precio != null ? precio * pp.getCantidad() : 0.0;
                 })
                 .sum();
         pedido.setTotal(total);
@@ -99,7 +106,6 @@ implements IPedidoService{
         Pedido saved = repository.save(pedido);
         return mapper.toDto(saved);
     }
-
 
     @Override
     @Transactional
